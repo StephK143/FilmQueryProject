@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 import com.skilldistillery.filmquery.entities.Actor;
 import com.skilldistillery.filmquery.entities.Film;
@@ -49,6 +50,49 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		conn.close();
 
 		return film;
+	}
+	public void userLookUpByKeyword(Scanner kb) throws SQLException {
+		List<Film> filmWithKeyword = new ArrayList<>();
+		System.out.println("Please enter a keyword");
+		String kw = kb.next();
+		kw = "%" + kw + "%";
+		
+		Film film = new Film(); 
+		
+		String user = "student";
+		String pass = "student";
+		Connection conn = DriverManager.getConnection(URL, user, pass);
+		
+		String sql;
+		sql = "SELECT * FROM film " + "WHERE title LIKE ? OR description LIKE ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, kw);
+		stmt.setString(2, kw);
+		
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			film = new Film();
+			film.setFilmId(rs.getInt("id"));
+			film.setFilmTitle(rs.getString("title"));
+			film.setFilmDescription(rs.getString("description"));
+			film.setFilmReleaseYear(rs.getInt("release_year"));
+			film.setFilmLanguageId(rs.getInt("language_id"));
+			film.setFilmRentalDuration(rs.getInt("rental_duration"));
+			film.setFilmRentalRate(rs.getDouble("rental_rate"));
+			film.setFilmLength(rs.getInt("length"));
+			film.setFilmReplacementCost(rs.getInt("language_id"));
+			film.setFilmRating(rs.getString("rating"));
+			film.setFilmSpecialFeatures(rs.getString("special_features"));
+			filmWithKeyword.add(film);
+		}
+		
+		System.out.println(filmWithKeyword);
+		rs.close();
+		stmt.close();
+		conn.close();
+		
+		System.out.println(film);
 	}
 
 	@Override
@@ -99,6 +143,21 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		stmt.close();
 		conn.close();
 		return actorListByFilm;
+	}
+
+
+	public void userLookUpByFilmId(Scanner kb) {
+		Film film = null;
+		System.out.println("Please enter the film Id you would like to look up:");
+		int fi = kb.nextInt();
+
+		try {
+			film = findFilmById(fi);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(film);
+
 	}
 
 }

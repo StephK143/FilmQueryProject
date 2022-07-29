@@ -56,15 +56,11 @@ public class Film {
 	public void setLa(List<Actor> la) {
 		this.la = la;
 	}
+	
+	
 
-	// write method to list actors of a film
 	public void getActorsInFilm() {
-//		DatabaseAccessorObject dba = new DatabaseAccessorObject();
-//		try {
-//			dba.findActorsByFilmId(filmId);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
+
 	}
 
 	public int getFilmId() {
@@ -181,11 +177,11 @@ public class Film {
 
 	@Override
 	public String toString() {
-		return "Film [filmId=" + filmId + ", filmTitle=" + filmTitle + ", filmDescription=" + filmDescription
-				+ ", filmReleaseYear=" + filmReleaseYear + ", filmLanguageId=" + filmLanguageId
-				+ ", filmRentalDuration=" + filmRentalDuration + ", filmRentalRate=" + filmRentalRate + ", filmLength="
-				+ filmLength + ", filmReplacementCost=" + filmReplacementCost + ", filmRating=" + filmRating
-				+ ", filmSpecialFeatures=" + filmSpecialFeatures + ", la=" + la + "]";
+		return "Film Id: " + filmId + ", Title: " + filmTitle + ",\nDescription: " + filmDescription
+				+ ",\nYear released: " + filmReleaseYear + ", Language Id= " + filmLanguageId
+				+ ", Rental Duration: " + filmRentalDuration + ", Rental Rate: $" + filmRentalRate + ", Length: "
+				+ filmLength + "minutes, Replacement Cost: $" + filmReplacementCost + ",\nRating=" + filmRating
+				+ ", Special Features=" + filmSpecialFeatures + "\nActors in the film include: " + la + "";
 	}
 
 }

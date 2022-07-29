@@ -66,8 +66,7 @@ public class Actor implements DatabaseAccessor {
 
 	@Override
 	public String toString() {
-		return "Actor [actorId=" + actorId + ", actorFirstName=" + actorFirstName + ", actorLastName=" + actorLastName
-				+ "]";
+		return "Actor Id: " + actorId + " Name=" + actorFirstName + " " + actorLastName + " \n";
 	}	
 
 }
