@@ -19,6 +19,8 @@ public class Film {
 	private double filmReplacementCost;
 	private String filmRating;
 	private String filmSpecialFeatures;
+	private List<Actor> la = new ArrayList<>();
+	
 
 	public Film() {
 		super();
@@ -47,14 +49,22 @@ public class Film {
 		this.filmReleaseYear = filmReleaseYear;
 		
 	}
+	public List<Actor> getLa() {
+		return la;
+	}
+
+	public void setLa(List<Actor> la) {
+		this.la = la;
+	}
+
 	// write method to list actors of a film
 	public void getActorsInFilm() {
-		DatabaseAccessorObject dba = new DatabaseAccessorObject();
-		try {
-			dba.findActorsByFilmId(filmId);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		DatabaseAccessorObject dba = new DatabaseAccessorObject();
+//		try {
+//			dba.findActorsByFilmId(filmId);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	public int getFilmId() {
@@ -175,7 +185,7 @@ public class Film {
 				+ ", filmReleaseYear=" + filmReleaseYear + ", filmLanguageId=" + filmLanguageId
 				+ ", filmRentalDuration=" + filmRentalDuration + ", filmRentalRate=" + filmRentalRate + ", filmLength="
 				+ filmLength + ", filmReplacementCost=" + filmReplacementCost + ", filmRating=" + filmRating
-				+ ", filmSpecialFeatures=" + filmSpecialFeatures + "]";
+				+ ", filmSpecialFeatures=" + filmSpecialFeatures + ", la=" + la + "]";
 	}
 
 }

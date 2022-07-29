@@ -42,6 +42,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			film.setFilmReplacementCost(rs.getInt("language_id"));
 			film.setFilmRating(rs.getString("rating"));
 			film.setFilmSpecialFeatures(rs.getString("special_features"));
+			film.setLa(findActorsByFilmId(filmId));
 		}
 		rs.close();
 		stmt.close();
@@ -90,9 +91,9 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		while (rs.next()) {
 			Actor a = new Actor();
 			a.setActorId(rs.getInt("id"));
-			// continue adding
+			a.setActorFirstName(rs.getString("first_name"));
+			a.setActorLastName(rs.getString("last_name"));
 			actorListByFilm.add(a);
-			System.out.println(rs.getString("id") + " " + rs.getString("first_name") + " " + rs.getString("last_name"));
 		}
 		rs.close();
 		stmt.close();
