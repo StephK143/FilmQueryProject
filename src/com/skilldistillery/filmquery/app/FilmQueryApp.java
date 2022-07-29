@@ -37,7 +37,14 @@ public class FilmQueryApp {
   }
 
   private void startUserInterface(Scanner input) {
-    
+	  
+	  //menu user story 1
+	  //hint for story 2 in Slack
+	  // if film is not found, java will print "film not found" not blank or null(if or if else)
+    // if story 3 pass to interface dai 
+	  //like %keyword%
+	  //story 4 language id prints the actual language along with the title
+	  //story 5 to display a film the actors will also be displayed.
   }
 
 }

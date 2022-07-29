@@ -14,7 +14,7 @@ public class Film {
 	private int filmReleaseYear;
 	private int filmLanguageId;
 	private int filmRentalDuration;
-	private int filmRentalRate;
+	private double filmRentalRate;
 	private int filmLength;
 	private double filmReplacementCost;
 	private String filmRating;
@@ -25,7 +25,7 @@ public class Film {
 	}
 
 	public Film(int filmId, String filmTitle, String filmDescription, int filmReleaseYear, int filmLanguageId,
-			int filmRentalDuration, int filmRentalRate, int filmLength, double filmReplacementCost, String filmRating,
+			int filmRentalDuration, double filmRentalRate, int filmLength, double filmReplacementCost, String filmRating,
 			String filmSpecialFeatures) {
 		super();
 		this.filmId = filmId;
@@ -41,6 +41,12 @@ public class Film {
 		this.filmSpecialFeatures = filmSpecialFeatures;
 	}
 
+	public Film(String filmTitle, int filmReleaseYear) {
+		super();
+		this.filmTitle = filmTitle;
+		this.filmReleaseYear = filmReleaseYear;
+		
+	}
 	// write method to list actors of a film
 	public void getActorsInFilm() {
 		DatabaseAccessorObject dba = new DatabaseAccessorObject();
@@ -99,12 +105,12 @@ public class Film {
 		this.filmRentalDuration = filmRentalDuration;
 	}
 
-	public int getFilmRentalRate() {
+	public double getFilmRentalRate() {
 		return filmRentalRate;
 	}
 
-	public void setFilmRentalRate(int filmRentalRate) {
-		this.filmRentalRate = filmRentalRate;
+	public void setFilmRentalRate(double d) {
+		this.filmRentalRate = d;
 	}
 
 	public int getFilmLength() {
@@ -173,4 +179,3 @@ public class Film {
 	}
 
 }
-//Complete the Film class with attributes that map to the columns of the film table. Use appropriate datatypes and Java naming conventions. Provide getters and setters, and appropriate constructors. Also add a good toString, and equals and hashCode methods.
