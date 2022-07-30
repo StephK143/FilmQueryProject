@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -23,7 +24,11 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		try {
 			film = findFilmById(fi);
 
-		} catch (SQLException e) {
+//		} catch (InputMismatchException m) {
+//				System.out.println("That is not a valid entry. Please try again.");
+		}
+		
+		catch (SQLException e) {
 
 			e.printStackTrace();
 
