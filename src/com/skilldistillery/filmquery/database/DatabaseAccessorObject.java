@@ -12,8 +12,6 @@ import java.util.Scanner;
 import com.skilldistillery.filmquery.entities.Actor;
 import com.skilldistillery.filmquery.entities.Film;
 
-//sql text, url, anything touching the database here!
-
 public class DatabaseAccessorObject implements DatabaseAccessor {
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=US/Mountain";
 
@@ -51,25 +49,26 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		return film;
 	}
+
 	public void userLookUpByKeyword(Scanner kb) throws SQLException {
 		List<Film> filmWithKeyword = new ArrayList<>();
 		System.out.println("Please enter a keyword");
 		String kw = kb.next();
 		kw = "%" + kw + "%";
-		
-		Film film = new Film(); 
-		
+
+		Film film = new Film();
+
 		String user = "student";
 		String pass = "student";
 		Connection conn = DriverManager.getConnection(URL, user, pass);
-		
+
 		String sql;
 		sql = "SELECT * FROM film " + "WHERE title LIKE ? OR description LIKE ?";
-		
+
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, kw);
 		stmt.setString(2, kw);
-		
+
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
 			film = new Film();
@@ -86,12 +85,12 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			film.setFilmSpecialFeatures(rs.getString("special_features"));
 			filmWithKeyword.add(film);
 		}
-		
+
 		System.out.println(filmWithKeyword);
 		rs.close();
 		stmt.close();
 		conn.close();
-		
+
 		System.out.println(film);
 	}
 
@@ -145,7 +144,6 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return actorListByFilm;
 	}
 
-
 	public void userLookUpByFilmId(Scanner kb) {
 		Film film = null;
 		System.out.println("Please enter the film Id you would like to look up:");
@@ -153,11 +151,17 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 
 		try {
 			film = findFilmById(fi);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		System.out.println(film);
 
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+		}
+		if (film == null) {
+			System.out.println("That is not a valid film id. Please try again.");
+		} else {
+			System.out.println(film);
+		}
 	}
 
 }

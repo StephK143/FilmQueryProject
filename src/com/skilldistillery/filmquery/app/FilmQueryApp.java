@@ -53,30 +53,29 @@ public class FilmQueryApp {
 	private void startUserInterface(Scanner input) throws SQLException {
 		DatabaseAccessorObject dao = new DatabaseAccessorObject();
 		int choice = 1;
-		
+
 		while (choice > 0 && choice < 3) {
-		System.out.println(" ___________________________________\n" 
-		+ "|   Please make your selection:     |\n"
-				+ "|                                   |\n" + "|   1. Look up a film by it's ID    |\n"
-				+ "|   2. Search for a film by keyword |\n" + "|   3. Exit                         |\n"
-				+ " -----------------------------------\n");
+			System.out.println(" ___________________________________\n" + "|   Please make your selection:     |\n"
+					+ "|                                   |\n" + "|   1. Look up a film by it's ID    |\n"
+					+ "|   2. Search for a film by keyword |\n" + "|   3. Exit                         |\n"
+					+ " -----------------------------------\n");
 
-		choice = input.nextInt();
+			choice = input.nextInt();
 
-		switch (choice) {
-		case 1:
-			dao.userLookUpByFilmId(input);
-			break;
-		case 2:
-			dao.userLookUpByKeyword(input);
-			break;
-		case 3:
-			System.out.println("You have choosen to exit. GoodBye");
-			break;
-		default:
-			System.out.println("Please choose a valid entry");
-			break;
-		}
+			switch (choice) {
+			case 1:
+				dao.userLookUpByFilmId(input);
+				break;
+			case 2:
+				dao.userLookUpByKeyword(input);
+				break;
+			case 3:
+				System.out.println("You have choosen to exit. GoodBye");
+				break;
+			default:
+				System.out.println("Please choose a valid entry");
+				break;
+			}
 		}
 		// menu user story 1
 		// hint for story 2 in Slack
@@ -87,9 +86,5 @@ public class FilmQueryApp {
 		// story 4 language id prints the actual language along with the title
 		// story 5 to display a film the actors will also be displayed.
 	}
-
-	
-
-	
 
 }
