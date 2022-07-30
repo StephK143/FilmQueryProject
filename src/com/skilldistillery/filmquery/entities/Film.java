@@ -1,11 +1,8 @@
 package com.skilldistillery.filmquery.entities;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import com.skilldistillery.filmquery.database.DatabaseAccessorObject;
 
 public class Film {
 	private int filmId;
@@ -13,6 +10,7 @@ public class Film {
 	private String filmDescription;
 	private int filmReleaseYear;
 	private int filmLanguageId;
+	private String filmLanguage;
 	private int filmRentalDuration;
 	private double filmRentalRate;
 	private int filmLength;
@@ -20,15 +18,14 @@ public class Film {
 	private String filmRating;
 	private String filmSpecialFeatures;
 	private List<Actor> la = new ArrayList<>();
-	
 
 	public Film() {
 		super();
 	}
 
 	public Film(int filmId, String filmTitle, String filmDescription, int filmReleaseYear, int filmLanguageId,
-			int filmRentalDuration, double filmRentalRate, int filmLength, double filmReplacementCost, String filmRating,
-			String filmSpecialFeatures) {
+			int filmRentalDuration, double filmRentalRate, int filmLength, double filmReplacementCost,
+			String filmRating, String filmSpecialFeatures) {
 		super();
 		this.filmId = filmId;
 		this.filmTitle = filmTitle;
@@ -43,12 +40,21 @@ public class Film {
 		this.filmSpecialFeatures = filmSpecialFeatures;
 	}
 
+	public String getFilmLanguage() {
+		return filmLanguage;
+	}
+
+	public void setFilmLanguage(String filmLanguage) {
+		this.filmLanguage = filmLanguage;
+	}
+
 	public Film(String filmTitle, int filmReleaseYear) {
 		super();
 		this.filmTitle = filmTitle;
 		this.filmReleaseYear = filmReleaseYear;
-		
+
 	}
+
 	public List<Actor> getLa() {
 		return la;
 	}
@@ -56,8 +62,6 @@ public class Film {
 	public void setLa(List<Actor> la) {
 		this.la = la;
 	}
-	
-	
 
 	public void getActorsInFilm() {
 
@@ -177,11 +181,14 @@ public class Film {
 
 	@Override
 	public String toString() {
-		return "Film Id: " + filmId + ", Title: " + filmTitle + ",\nDescription: " + filmDescription
-				+ ",\nYear released: " + filmReleaseYear + ", Language Id= " + filmLanguageId
-				+ ", Rental Duration: " + filmRentalDuration + ", Rental Rate: $" + filmRentalRate + ", Length: "
-				+ filmLength + "minutes, Replacement Cost: $" + filmReplacementCost + ",\nRating=" + filmRating
-				+ ", Special Features=" + filmSpecialFeatures + "\nActors in the film include: " + la + "";
+		return "\nTitle: " + filmTitle + "\nYear released: " + filmReleaseYear + "\nRating: " + filmRating
+				+ "\nLanguage " + filmLanguage + ",\nDescription: " + filmDescription + "\nActors in the film include: "
+				+ la + ".";
+
+//				+ ", Language Id= " + filmLanguageId + ", Language "
+//				+ filmLanguage + ", Rental Duration: " + filmRentalDuration + ", Rental Rate: $" + filmRentalRate
+//				+ ", Length: " + filmLength + "minutes, Replacement Cost: $" + filmReplacementCost + ",\nRating="
+//				+ filmRating + ", Special Features=" + filmSpecialFeatures + "\nActors in the film include: " + la + "";
 	}
 
 }

@@ -1,13 +1,10 @@
 package com.skilldistillery.filmquery.app;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Scanner;
 
 import com.skilldistillery.filmquery.database.DatabaseAccessor;
 import com.skilldistillery.filmquery.database.DatabaseAccessorObject;
-import com.skilldistillery.filmquery.entities.Actor;
-import com.skilldistillery.filmquery.entities.Film;
 
 public class FilmQueryApp {
 
@@ -15,32 +12,8 @@ public class FilmQueryApp {
 
 	public static void main(String[] args) throws SQLException {
 		FilmQueryApp app = new FilmQueryApp();
-//    app.test();
-//    app.test2();
 		app.launch();
 	}
-
-//	private void test() {
-//		Film film = null;
-//		try {
-//			film = db.findFilmById(1);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		System.out.println(film);
-//	}
-//
-//	private void test2() {
-//		List<Actor> actorByFilm = null;
-//		try {
-//			actorByFilm = db.findActorsByFilmId(1);
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		System.out.println(actorByFilm);
-//	}
 
 	private void launch() throws SQLException {
 		Scanner input = new Scanner(System.in);
@@ -77,14 +50,6 @@ public class FilmQueryApp {
 				break;
 			}
 		}
-		// menu user story 1
-		// hint for story 2 in Slack
-		// if film is not found, java will print "film not found" not blank or null(if
-		// or if else)
-		// if story 3 pass to interface dai
-		// like %keyword%
-		// story 4 language id prints the actual language along with the title
-		// story 5 to display a film the actors will also be displayed.
 	}
 
 }

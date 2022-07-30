@@ -15,6 +15,26 @@ import com.skilldistillery.filmquery.entities.Film;
 public class DatabaseAccessorObject implements DatabaseAccessor {
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=US/Mountain";
 
+	public void userLookUpByFilmId(Scanner kb) {
+		Film film = null;
+		System.out.println("Please enter the film Id you would like to look up:");
+		int fi = kb.nextInt();
+
+		try {
+			film = findFilmById(fi);
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+		}
+		if (film == null) {
+			System.out.println("That is not a valid film id. Please try again.");
+		} else {
+			System.out.println(film);
+		}
+	}
+
 	@Override
 	public Film findFilmById(int filmId) throws SQLException {
 		Film film = null;
@@ -35,6 +55,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			film.setFilmDescription(rs.getString("description"));
 			film.setFilmReleaseYear(rs.getInt("release_year"));
 			film.setFilmLanguageId(rs.getInt("language_id"));
+			film.setFilmLanguage(findLanguageByFilmId(film.getFilmId()));
 			film.setFilmRentalDuration(rs.getInt("rental_duration"));
 			film.setFilmRentalRate(rs.getDouble("rental_rate"));
 			film.setFilmLength(rs.getInt("length"));
@@ -50,13 +71,30 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return film;
 	}
 
-	public void userLookUpByKeyword(Scanner kb) throws SQLException {
+	public void userLookUpByKeyword(Scanner kb) {
 		List<Film> filmWithKeyword = new ArrayList<>();
 		System.out.println("Please enter a keyword");
 		String kw = kb.next();
 		kw = "%" + kw + "%";
 
-		Film film = new Film();
+		try {
+			filmWithKeyword = findFilmByKw(kw);
+
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+
+		}
+		if (filmWithKeyword == null) {
+			System.out.println("There are no movies with that keyword. Please try again.");
+		} else {
+			System.out.println(filmWithKeyword);
+		}
+	}
+
+	public List<Film> findFilmByKw(String kw) throws SQLException {
+		List<Film> filmWithKeyword = new ArrayList<>();
+		Film film;
 
 		String user = "student";
 		String pass = "student";
@@ -77,6 +115,7 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			film.setFilmDescription(rs.getString("description"));
 			film.setFilmReleaseYear(rs.getInt("release_year"));
 			film.setFilmLanguageId(rs.getInt("language_id"));
+			film.setFilmLanguage(findLanguageByFilmId(film.getFilmId()));
 			film.setFilmRentalDuration(rs.getInt("rental_duration"));
 			film.setFilmRentalRate(rs.getDouble("rental_rate"));
 			film.setFilmLength(rs.getInt("length"));
@@ -86,12 +125,12 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 			filmWithKeyword.add(film);
 		}
 
-		System.out.println(filmWithKeyword);
 		rs.close();
 		stmt.close();
 		conn.close();
 
-		System.out.println(film);
+		return filmWithKeyword;
+
 	}
 
 	@Override
@@ -144,24 +183,25 @@ public class DatabaseAccessorObject implements DatabaseAccessor {
 		return actorListByFilm;
 	}
 
-	public void userLookUpByFilmId(Scanner kb) {
-		Film film = null;
-		System.out.println("Please enter the film Id you would like to look up:");
-		int fi = kb.nextInt();
+	public String findLanguageByFilmId(int filmId) throws SQLException {
+		String filmLanguage = "";
+		String user = "student";
+		String pass = "student";
+		Connection conn = DriverManager.getConnection(URL, user, pass);
 
-		try {
-			film = findFilmById(fi);
+		String sql;
+		sql = "SELECT l.name FROM language l JOIN film f ON l.id = f.language_id WHERE f.id = ?";
 
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, filmId);
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			filmLanguage = rs.getString("name");
 		}
-		if (film == null) {
-			System.out.println("That is not a valid film id. Please try again.");
-		} else {
-			System.out.println(film);
-		}
+		rs.close();
+		stmt.close();
+		conn.close();
+		return filmLanguage;
 	}
 
 }
